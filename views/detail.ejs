@@ -1,0 +1,15 @@
+<html lang="en">
+  <%- include('./partials/head.ejs'); %>
+  <body>
+    <%- include('./partials/nav.ejs'); %>
+    <div class="blogs">
+      <h1 class="title"><%= blog.title %></h1>
+      <p style="text-align: end; font-size: 15px;">
+        <%= blog.updatedAt %>
+      </p>
+      <p class="snippet"><%= blog.snippet %></p>
+      <p class="body"><%= blog.body %></p>
+    </div>
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>

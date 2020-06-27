@@ -1,0 +1,26 @@
+<html lang="en">
+  <%- include('./partials/head.ejs'); %>
+  <body>
+    <%- include('./partials/nav.ejs'); %>
+    <div class="blogs content">
+      <h2>
+        All Blogs
+      </h2>
+      <% if(blogs.length > 0) { %> <% blogs.forEach(element => { %>
+        <a href="/blogs/<%= element._id %>" >
+      <div class="blogs">
+        <h1 class="title"><%= element.title %></h1>
+        <p style="text-align: end; font-size: 15px;">
+          <%= element.updatedAt %>
+        </p>
+        <p class="snippet"><%= element.snippet %></p>
+        <p class="body"><%= element.body %></p>
+    </a>
+      </div>
+      <% }); %> <% } else { %>
+      <h4>Blog not found</h4>
+      <% } %>
+    </div>
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>

@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
-const { get, result } = require("lodash");
 //express app
 const app = express();
 
@@ -10,7 +9,7 @@ const dbURL =
   "mongodb+srv://test:test1234@blogs-cluster-uwtkb.mongodb.net/collection?retryWrites=true&w=majority";
 mongoose
   .connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => console.log("connected to db"))
+  .then(() => console.log("connected to db"))
   .catch((err) => console.log(err));
 
 // Register views engine
@@ -29,6 +28,25 @@ app
     res.redirect("/blogs");
   })
 
+  //Create Blog Page
+  .get("/blogs/create", (req, res) => {
+    res.render("create", { title: "Snippet" });
+  })
+
+  // redirect to specific blog
+  .get("/blogs/:blogID", (req, res) => {
+    const id = req.params.blogID;
+    Blog.findById(id)
+      .then((result) => {
+        if (result != null) {
+          res.render("detail", { title: "Blog Detail", blog: result });
+        } else {
+          res.write("data not found!");
+        }
+      })
+      .catch((err) => console.log(err));
+  })
+
   //About Page
   .get("/about", (req, res) => {
     res.render("about", { title: "About" });
@@ -45,16 +63,6 @@ app
       .catch((err) => console.log(err));
   })
 
-  // redirect to specific blog
-  .get("/blogs/:id", (req, res) => {
-    const id = req.params.id;
-    Blog.findById(id)
-      .then((result) => {
-        res.render("detail", { title: "Blog Detail", blog: result });
-      })
-      .catch((err) => console.log(err));
-  })
-
   // Add Blogs in DB
   .post("/blogs", (req, res) => {
     const blog = new Blog(req.body);
@@ -64,11 +72,6 @@ app
         res.redirect("/blogs");
       })
       .catch((err) => console.log(err));
-  })
-
-  //Create Blog Page
-  .get("/blogs/create", (req, res) => {
-    res.render("create", { title: "Snippet" });
   })
 
   // Fetch all data in json format

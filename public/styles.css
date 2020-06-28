@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
 body {
   background-color: #222;
+  width: 100%;
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 20px;
@@ -20,11 +21,14 @@ ul {
 /* nav & footer styles */
 nav {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #ddd;
   text-transform: uppercase;
+  transition: all 0.5s linear;
+  overflow: hidden;
 }
 nav ul {
   display: flex;
@@ -33,17 +37,27 @@ nav ul {
 }
 nav li {
   display: flex;
+  position: relative;
   list-style-type: none;
   margin-left: 20px;
-  margin-right: 20px;
+  margin-right: 10px;
+}
+li:hover {
+  padding: 10px;
+  background-color: #777;
+  border-radius: 10px;
+  transition: all 100ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 nav h1 {
-  font-size: 3em;
+  font-size: 40px;
+  margin: 0px;
+  padding: 0px;
 }
 nav a {
   color: white;
   font-weight: 300;
 }
+/* Footer */
 footer {
   color: #777;
   text-align: center;
@@ -66,7 +80,7 @@ h3 {
   border-color: white;
   padding: 15px 15px;
   margin-bottom: 10px;
-  background: linear-gradient(130deg, #d2ccc4, #2f4353 100%);
+  background: #777;
   font-family: "Nunito Sans", sans-serif;
   transition: all 0.5s linear;
 }

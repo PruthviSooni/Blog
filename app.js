@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const blogRoutes = require("./routes/blogRoutes");
 const Blog = require("./models/blog");
+
 //express app
 const app = express();
 
@@ -22,13 +24,12 @@ app.listen(8008);
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-app
-  //Home Page
-  .get("/", (req, res) => {
-    res.redirect("/blogs");
-  })
+//Blog Routes
+app.use(blogRoutes);
 
-  //Create Blog Page
+//About Page
+app
+   //Create Blog Page
   .get("/blogs/create", (req, res) => {
     res.render("create", { title: "Snippet" });
   })
@@ -48,6 +49,7 @@ app
   })
 
   //About Page
+
   .get("/about", (req, res) => {
     res.render("about", { title: "About" });
   })
@@ -87,3 +89,7 @@ app
   .use((req, res) => {
     res.render("404", { title: "404 Page Not Found" });
   });
+//404 not found
+app.use((req, res) => {
+  res.render("404", { title: "404 Page Not Found" });
+});
